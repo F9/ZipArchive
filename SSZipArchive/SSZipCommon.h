@@ -1,5 +1,5 @@
-#ifndef SSZipCommon
-#define SSZipCommon
+#ifndef FNZipCommon
+#define FNZipCommon
 
 /* unz_global_info structure contain global data about the ZIPfile
  These data comes from the end of central dir */
@@ -23,11 +23,11 @@ typedef struct unz_file_info64_s
     uint16_t version;               /* version made by                 2 bytes */
     uint16_t version_needed;        /* version needed to extract       2 bytes */
     uint16_t flag;                  /* general purpose bit flag        2 bytes */
-    uint16_t compression_method;    /* compression method              2 bytes */
+    uint16_t compreFNion_method;    /* compreFNion method              2 bytes */
     uint32_t dos_date;              /* last mod file date in Dos fmt   4 bytes */
     uint32_t crc;                   /* crc-32                          4 bytes */
-    uint64_t compressed_size;       /* compressed size                 8 bytes */
-    uint64_t uncompressed_size;     /* uncompressed size               8 bytes */
+    uint64_t compreFNed_size;       /* compreFNed size                 8 bytes */
+    uint64_t uncompreFNed_size;     /* uncompreFNed size               8 bytes */
     uint16_t size_filename;         /* filename length                 2 bytes */
     uint16_t size_file_extra;       /* extra field length              2 bytes */
     uint16_t size_file_comment;     /* file comment length             2 bytes */
@@ -46,11 +46,11 @@ typedef struct unz_file_info_s
     uint16_t version;               /* version made by                 2 bytes */
     uint16_t version_needed;        /* version needed to extract       2 bytes */
     uint16_t flag;                  /* general purpose bit flag        2 bytes */
-    uint16_t compression_method;    /* compression method              2 bytes */
+    uint16_t compreFNion_method;    /* compreFNion method              2 bytes */
     uint32_t dos_date;              /* last mod file date in Dos fmt   4 bytes */
     uint32_t crc;                   /* crc-32                          4 bytes */
-    uint32_t compressed_size;       /* compressed size                 4 bytes */
-    uint32_t uncompressed_size;     /* uncompressed size               4 bytes */
+    uint32_t compreFNed_size;       /* compreFNed size                 4 bytes */
+    uint32_t uncompreFNed_size;     /* uncompreFNed size               4 bytes */
     uint16_t size_filename;         /* filename length                 2 bytes */
     uint16_t size_file_extra;       /* extra field length              2 bytes */
     uint16_t size_file_comment;     /* file comment length             2 bytes */
