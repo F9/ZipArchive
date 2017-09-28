@@ -344,16 +344,26 @@ NSString *const SSZipArchiveErrorDomain = @"SSZipArchiveErrorDomain";
                 fileIsSymbolicLink = YES;
             }
             
-            // Check if it contains directory
-            //            NSString * strPath = @(filename);
             NSString * strPath = @(filename);
-            //if filename contains chinese dir transform Encoding
-            if (!strPath) {
-                NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-                strPath = [NSString  stringWithCString:filename encoding:enc];
-            }
-            //end by skyfox
             
+            NSData *data;
+            if (!strPath) {
+                // if filename is non-unicode, autodetect and transform Encoding
+                data = [NSData dataWithBytes:(const void *)filename length:sizeof(unsigned char) * fileInfo.size_filename];
+                [NSString stringEncodingForData:data encodingOptions:nil convertedString:&strPath usedLossyConversion:nil];
+            }
+            if (!strPath) {
+                // if filename encoding is non-detected, we manually attempt Chinese encoding
+                // TODO: attempt more encodings
+                NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+                strPath = [NSString stringWithCString:filename encoding:enc];
+            }
+            if (!strPath.length) {
+                // if filename encoding is non-detected, we default to something
+                strPath = [data base64EncodedStringWithOptions:0];
+            }
+            
+            // Check if it contains directory
             BOOL isDirectory = NO;
             if (filename[fileInfo.size_filename-1] == '/' || filename[fileInfo.size_filename-1] == '\\') {
                 isDirectory = YES;
